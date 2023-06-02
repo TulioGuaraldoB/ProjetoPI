@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exibição de Imagem</title>
+</head>
+<body>
+  <div id="app">
+      <input type="button" @click="mostra()"/>
+    <img :src="imagemUrl" alt="Imagem" v-if="imagemUrl" style="width: 200px; height: 200px;"/>
+    <p v-else>Nenhuma imagem encontrada.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        imagemUrl: 'http://localhost:3001/imagem/2' // Substitua pelo URL do seu servidor e o ID da imagem desejada
+      },
+      methods:{
+          mostra(){
+              this.imagemUrl = 'http://localhost:3001/imagem/2';
+          }
+      }
+    });
+  </script>
+</body>
+</html>
