@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Me Leva Pra Casa? - Encontre Um Pet Para Adotar</title>
+    <link rel="stylesheet" type="text/css" href="../style/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div id="logo"><img id="imgsize" src="../images/logo_escrito.png" /></div>
+        <label for="drop" class="toggle"><img src="../images/pegada2.png">&nbsp&nbspMENU</label>
+        <input type="checkbox" id="drop" />
+        <ul class="menu">
+            <li><a href="../pags/index.html">Home</a></li>
+            <li><a href="../pags/sobre.html">Quem Somos</a></li>
+            <li><a href="../pags/busca.html">Quero Um Amigo</a></li>
+            <li><a class="active" href="../pags/cadastro.html">Cadastro de Pet</a></li>
+            <li><a href="../pags/contato.html">Contato</a></li>
+        </ul>
+    </nav>
+    <div class="wrapper" id="app">
+        <div class="header">ENCONTRE SEU AMIGO<br></div>
+        <div class="main">
+            <div class="box sidebar"><img class="img-responsive" src="../images/dogif.gif" /></div>
+            <div id="main-2">
+                <div class="rounded overflow-hidden shadow-lg" id="animais_linha">
+                    <div class="border">
+                        <label>Qual o sexo?</label>
+                        <div v-for="opcao in opcoes_s" :key="opcao.id" class="checkbox-inline">
+                            <label>
+                                <input type="checkbox" :checked="opcao.selecionado"
+                                    @change="opcao.selecionado = !opcao.selecionado">
+                                {{ opcao.label }}
+                            </label>
+                        </div>
+                        <br>
+                        <label>Qual a especie?</label>
+                        <div v-for="opcao in opcoes_e" :key="opcao.id" class="checkbox-inline">
+                            <label>
+                                <input type="checkbox" :checked="opcao.selecionado"
+                                    @change="opcao.selecionado = !opcao.selecionado">
+                                {{ opcao.label }}
+                            </label>
+                        </div>
+                        <br>
+                        <label>Qual o porte?</label>
+                        <div v-for="opcao in opcoes_p" :key="opcao.id" class="checkbox-inline">
+                            <label>
+                                <input type="checkbox" :checked="opcao.selecionado"
+                                    @change="opcao.selecionado = !opcao.selecionado">
+                                {{ opcao.label }}
+                            </label>
+                        </div>
+                        <br>
+                        <label>Qual a idade?</label>
+                        <div v-for="opcao in opcoes_i" :key="opcao.id" class="checkbox-inline">
+                            <label>
+                                <input type="checkbox" :checked="opcao.selecionado"
+                                    @change="opcao.selecionado = !opcao.selecionado">
+                                {{ opcao.label }}
+                            </label>
+                        </div>
+                        <br>
+                        <input type="button" @click="realizarBusca" value="Buscar valor">
+                    </div>
+                    <div>
+                        <div v-for="(animal, index) in animaisFiltrados" :key="index">
+                            <img class="max-w-xs inline-block" id="img_animais"
+                                :src="'http://localhost:3001/imagem/'+ (index + 1)" />
+                            <p>{{animal.nome}}</p>
+                            <p>{{animal.cidade}}</p>
+                            <p>{{animal.raca}}</p>
+                            <p>{{animal.idade}}</p>
+                            <p>{{animal.porte}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="box sidebar"><img class="img-responsive" src="../images/dogif.gif" /></div>
+            </div>
+            <div class="rodape">
+                <img src="../images/instagram.png">
+                <img src="../images/facebook.png">
+                <img src="../images/mail.png">
+                <img src="../images/whatsapp.png">
+                <strong>(16) 3771-2233</strong>
+            </div>
+        </div>
+    </div>
+    <!-- HTML omitido para brevidade -->
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                especie: [],
+                sexo: [],
+                porte: [],
+                idade: [],
+                animaisFiltrados: [],
+                opcoes_s: [
+                    { id: 1, label: 'Macho', selecionado: false },
+                    { id: 2, label: 'Femea', selecionado: false }
+                ],
+                opcoes_e: [
+                    { id: 1, label: 'Gato', selecionado: false },
+                    { id: 2, label: 'Cachorro', selecionado: false }
+                ],
+                opcoes_i: [
+                    { id: 1, label: 'Filhote', selecionado: false },
+                    { id: 2, label: 'Adulto', selecionado: false },
+                    { id: 3, label: 'Idoso', selecionado: false }
+                ],
+                opcoes_p: [
+                    { id: 1, label: 'Pequeno', selecionado: false },
+                    { id: 2, label: 'Médio', selecionado: false },
+                    { id: 3, label: 'Grande', selecionado: false }
+                ]
+            },
+            methods: {
+                realizarBusca() {
+                    // Obter os valores selecionados dos checkboxes
+                    if (this.especie == 0) {
+                        this.especie = 'Gato'
+                    }
+                    else {
+                        this.especie = 'Cachorro'
+                    }
+
+                    //sexo
+                    if (this.sexo == 0) {
+                        this.sexo = 'Femea'
+                    }
+                    else {
+                        this.sexo = 'Macho'
+                    }
+
+                    //idade
+                    if (this.idade == 0) {
+                        this.idade = 'Filhote'
+                    }
+                    else if (this.idade == 1) {
+                        this.idade = 'Adulto'
+                    }
+                    else {
+                        this.idade = 'Idoso'
+                    }
+
+                    //porte
+                    if (this.porte == 0) {
+                        this.porte = 'Pequeno'
+                    }
+                    else if (this.porte == 1) {
+                        this.porte = 'Médio'
+                    }
+                    else {
+                        this.porte = 'Grande'
+                    }
+
+                    // Construir os parâmetros da requisição
+                    const parametros = {
+                        especie: this.especie,
+                        sexo: this.sexo,
+                        porte: this.porte,
+                        idade: this.idade
+                    };
+
+                    axios.get('/animaisfiltro', { params: parametros })
+                        .then(response => {
+                            console.log(this.especie);
+                            this.animaisFiltrados = response.data;
+                        })
+                        .catch(error => {
+                            console.log(this.especie);
+                            console.error('Erro ao realizar busca:', error);
+                        });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

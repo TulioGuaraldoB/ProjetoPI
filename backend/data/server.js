@@ -86,6 +86,24 @@ app.get('/animais', (req, res) => {
   });
 });
 
+app.get('/animaisfiltro', (req, res) => {
+  let { raca, sexo, porte, idade } = req.query;
+  let sql = `SELECT nome, raca, idade, porte, cidade, estado, imagem FROM animais_doar WHERE raca = ?`;
+  let values = [
+    raca
+  ];
+
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      res.status(500).json({ message: 'não localizado' });
+    } else {
+      console.log('Dados inseridos com sucesso')
+      res.status(200).json(result);
+    }
+  });
+});
+
+
 // Iniciar o servidor
 const port = 3001;
 app.listen(port, () => {

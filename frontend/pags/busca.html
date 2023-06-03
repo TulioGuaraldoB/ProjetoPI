@@ -33,10 +33,11 @@
     <div class="main">
       <div class="box sidebar"><img class="img-responsive" src="../images/dogif.gif" /></div>
       <div id="main-2">
-        <div class="rounded overflow-hidden shadow-lg" id="animais_linha" v-for="(animal, index) in animais" :key="index">
+        <div class="rounded overflow-hidden shadow-lg" id="animais_linha" v-for="(animal, index) in animais"
+          :key="index">
           <div class="border">
-            <a href=""><img class="max-w-xs inline-block" id="img_animais"
-                :src="'http://localhost:3001/imagem/'+ (index + 1)"></a>
+            <a href=""><img class="max-w-xs inline-block"
+                id="img_animais" :src="'http://localhost:3001/imagem/'+ (index + 1)"></a>
           </div>
           <div class="px-6 py-4">
             <h1 class="name_text">{{ animal.nome }}</h1>
