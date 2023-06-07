@@ -100,69 +100,37 @@
         const app = new Vue({
             el: '#app',
             data: {
-                especie: [],
-                sexo: [],
-                porte: [],
-                idade: [],
+                especie: '',
+                sexo: '',
+                porte: '',
+                idade: '',
                 animaisFiltrados: [],
                 opcoes_s: [
-                    { id: 1, label: 'Macho', selecionado: false },
-                    { id: 2, label: 'Femea', selecionado: false }
+                    { id: 0, label: 'Macho', selecionado: false },
+                    { id: 1, label: 'Femea', selecionado: false }
                 ],
                 opcoes_e: [
-                    { id: 1, label: 'Gato', selecionado: false },
-                    { id: 2, label: 'Cachorro', selecionado: false }
+                    { id: 0, label: 'Gato', selecionado: false },
+                    { id: 1, label: 'Cachorro', selecionado: false }
                 ],
                 opcoes_i: [
-                    { id: 1, label: 'Filhote', selecionado: false },
-                    { id: 2, label: 'Adulto', selecionado: false },
-                    { id: 3, label: 'Idoso', selecionado: false }
+                    { id: 0, label: 'Filhote', selecionado: false },
+                    { id: 1, label: 'Adulto', selecionado: false },
+                    { id: 2, label: 'Idoso', selecionado: false }
                 ],
                 opcoes_p: [
-                    { id: 1, label: 'Pequeno', selecionado: false },
-                    { id: 2, label: 'Médio', selecionado: false },
-                    { id: 3, label: 'Grande', selecionado: false }
+                    { id: 0, label: 'Pequeno', selecionado: false },
+                    { id: 1, label: 'Médio', selecionado: false },
+                    { id: 2, label: 'Grande', selecionado: false }
                 ]
             },
             methods: {
                 realizarBusca() {
                     // Obter os valores selecionados dos checkboxes
-                    if (this.especie == 0) {
-                        this.especie = 'Gato'
-                    }
-                    else {
-                        this.especie = 'Cachorro'
-                    }
-
-                    //sexo
-                    if (this.sexo == 0) {
-                        this.sexo = 'Femea'
-                    }
-                    else {
-                        this.sexo = 'Macho'
-                    }
-
-                    //idade
-                    if (this.idade == 0) {
-                        this.idade = 'Filhote'
-                    }
-                    else if (this.idade == 1) {
-                        this.idade = 'Adulto'
-                    }
-                    else {
-                        this.idade = 'Idoso'
-                    }
-
-                    //porte
-                    if (this.porte == 0) {
-                        this.porte = 'Pequeno'
-                    }
-                    else if (this.porte == 1) {
-                        this.porte = 'Médio'
-                    }
-                    else {
-                        this.porte = 'Grande'
-                    }
+                    this.sexo = this.opcoes_s.find(opcao => opcao.selecionado)?.label || '';
+                    this.especie = this.opcoes_e.find(opcao => opcao.selecionado)?.label || '';
+                    this.idade = this.opcoes_i.find(opcao => opcao.selecionado)?.label || '';
+                    this.porte = this.opcoes_p.find(opcao => opcao.selecionado)?.label || '';
 
                     // Construir os parâmetros da requisição
                     const parametros = {
@@ -174,11 +142,11 @@
 
                     axios.get('/animaisfiltro', { params: parametros })
                         .then(response => {
-                            console.log(this.especie);
+                            console.log(this.especie, this.sexo, this.porte, this.idade);
                             this.animaisFiltrados = response.data;
                         })
                         .catch(error => {
-                            console.log(this.especie);
+                            console.log(this.sexo, this.especie, this.porte, this.idade);
                             console.error('Erro ao realizar busca:', error);
                         });
                 }

@@ -48,14 +48,14 @@
                 <div class="col">
                   <p>Espécie
                     <select class="selecao" v-model="especie">
-                      <option v-for="(op, index) in especie_op" :key="index">{{ op }}</option>
+                      <option v-for="(op, index) in opcoes_e" :key="index" :value="op.label">{{ op.label }}</option>
                     </select>
                   </p>
                 </div>
                 <div class="col">
                   <p>Sexo
                     <select class="selecao" v-model="sexo">
-                      <option v-for="(op, index) in sexo_op" :key="index">{{ op }}</option>
+                      <option v-for="(op, index) in opcoes_s" :key="index" :value="op.label">{{ op.label }}</option>
                     </select>
                   </p>
                 </div>
@@ -63,13 +63,13 @@
 
               <p>Idade
                 <select class="selecao" v-model="idade">
-                  <option v-for="(op, index) in idade_op" :key="index">{{ op }}</option>
+                  <option v-for="(op, index) in opcoes_i" :key="index" :value="op.label">{{ op.label }}</option>
                 </select>
               </p>
 
               <p>Porte
                 <select class="selecao" v-model="porte">
-                  <option v-for="(op, index) in porte_op" :key="index">{{ op }}</option>
+                  <option v-for="(op, index) in opcoes_p" :key="index" :value="op.label">{{ op.label }}</option>
                 </select>
               </p>
 

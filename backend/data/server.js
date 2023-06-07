@@ -29,11 +29,12 @@ const connection = mysql.createConnection({
 
 // Rota para inserir os dados no banco
 app.post('/inserir', upload.single('imagem'), (req, res) => {
-  let { nome_animal, especie_op, idade_op, porte_op, cidade_animal, estado_animal, castradoValue, vacinadoValue, vermifugadoValue, cuidadoValue } = req.body;
-  let sql = `INSERT INTO animais_doar (nome, raca, idade, porte, cidade, estado, vermifugado, castrado, vacinado, cuidados_especiais, imagem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  let { nome_animal, especie_op, sexo_op, idade_op, porte_op, cidade_animal, estado_animal, castradoValue, vacinadoValue, vermifugadoValue, cuidadoValue } = req.body;
+  let sql = `INSERT INTO animais_doar (nome, raca, sexo, idade, porte, cidade, estado, vermifugado, castrado, vacinado, cuidados_especiais, imagem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
   let values = [
     nome_animal,
     especie_op,
+    sexo_op,
     idade_op,
     porte_op,
     cidade_animal,

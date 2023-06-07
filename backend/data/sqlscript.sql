@@ -8,6 +8,7 @@ create table animais_doar(
     id int(11) PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(60) NOT NULL,
     raca VARCHAR(60) NOT NULL,
+    sexo VARCHAR(60) NOT NULL,
     idade VARCHAR(60) NOT NULL,
     porte VARCHAR(60) NOT NULL,
     cidade VARCHAR(60) NOT NULL,
