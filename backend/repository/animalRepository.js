@@ -1,13 +1,30 @@
 const Animal = require("../model/animal");
 
-function getAllAnimals() {
-    let animals = Animal.findAll();
+async function getAllAnimals() {
+    let animals = await Animal.findAll();
     return animals;
 }
 
-function getAnimalById(animalId) {
-    let animal = Animal.findByPk(animalId);
+async function getAnimalById(animalId) {
+    var animal = await Animal.findByPk(animalId);
     return animal;
 }
 
-module.exports = { getAllAnimals, getAnimalById };
+async function createAnimal(animal) {
+    await Animal.create({
+        name: animal.name,
+        breed: animal.breed,
+        gender: animal.gender,
+        age: animal.age,
+        size: animal.size,
+        city: animal.city,
+        state: animal.state,
+        dewormed: animal.dewormed,
+        castrated: animal.castrated,
+        vaccinated: animal.vaccinated,
+        special_care: animal.special_care,
+        picture: animal.picture,
+    });
+}
+
+module.exports = { getAllAnimals, getAnimalById, createAnimal };

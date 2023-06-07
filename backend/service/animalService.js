@@ -1,21 +1,38 @@
 const animalRepository = require("../repository/animalRepository");
 
-function getAllAnimals() {
+async function getAllAnimals() {
     try {
-        let animals = animalRepository.getAllAnimals();
+        let animals = await animalRepository.getAllAnimals();
         return animals;
     } catch (error) {
         console.log(error);
     }
 }
 
-function getAnimalById(animalId) {
+async function getAnimalById(animalId) {
     try {
-        let animal = animalRepository.getAnimalById(animalId);
+        let animal = await animalRepository.getAnimalById(animalId);
         return animal;
     } catch (error) {
         console.log(error);
     }
 }
 
-module.exports = { getAllAnimals, getAnimalById };
+async function getAnimalPictureById(animalId) {
+    try {
+        var animal = await animalRepository.getAnimalById(animalId);
+        return animal.picture;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function createAnimal(animal) {
+    try {
+        await animalRepository.createAnimal(animal);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = { getAllAnimals, getAnimalById, getAnimalPictureById, createAnimal };
