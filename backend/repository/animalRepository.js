@@ -5,4 +5,9 @@ function getAllAnimals() {
     return animals;
 }
 
-module.exports = { getAllAnimals };
+function getAnimalById(animalId) {
+    let animal = Animal.findByPk(animalId);
+    return animal;
+}
+
+module.exports = { getAllAnimals, getAnimalById };

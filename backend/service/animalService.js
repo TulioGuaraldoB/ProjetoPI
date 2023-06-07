@@ -9,4 +9,13 @@ function getAllAnimals() {
     }
 }
 
-module.exports = { getAllAnimals }
+function getAnimalById(animalId) {
+    try {
+        let animal = animalRepository.getAnimalById(animalId);
+        return animal;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = { getAllAnimals, getAnimalById };

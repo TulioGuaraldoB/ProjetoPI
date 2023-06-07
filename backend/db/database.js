@@ -4,4 +4,4 @@ const sequelize = new Sequelize(`Animais`, `root`, `fatec123*`, {
     host: `127.0.0.1`
 });
 
-module.exports = sequlize;
+module.exports = sequelize;
