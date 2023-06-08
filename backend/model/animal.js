@@ -65,7 +65,7 @@ const Animal = database.define("animals", {
     },
 
     picture: {
-        type: Sequelize.STRING,
+        type: Sequelize.BLOB,
         allowNull: true,
     }
 });
